@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const request = require('request');
 
@@ -10,7 +11,7 @@ server.use((req, res, next) => {
 
 server.get('/', (req, res) => {
     request(
-      { url: 'https://api.edamam.com/search?q=chicken&app_id=90c3baa8&app_key=e6e29c33582a6cabfe56dbf6d4528477' },
+      { url: `https://api.edamam.com/search?q=chicken&app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}` },
       (error, response, body) => {
         if (error || response.statusCode !== 200) {
           return res.status(500).json({ type: 'error', message: err.message });
