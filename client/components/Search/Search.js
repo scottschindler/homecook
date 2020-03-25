@@ -1,20 +1,28 @@
+import { SearchInput, Button } from "evergreen-ui";
+
 const Search = () => {
   return (
     <main>
       <ul>
         <li>
-          <input></input>
+          <SearchInput placeholder="Filter traits..." height={40} />
         </li>
         <li>
-          <button>Browse</button>
+          <Button marginRight={16} appearance="minimal" intent="none">
+            Browse
+          </Button>
         </li>
         <li>
           {" "}
-          <button>Healthy</button>
+          <Button marginRight={16} appearance="minimal" intent="none">
+            Healthy
+          </Button>
         </li>
         <li>
           {" "}
-          <button>Top Recipes</button>
+          <Button marginRight={16} appearance="minimal" intent="none">
+            Top Recipes
+          </Button>
         </li>
       </ul>
       <style jsx>{`
