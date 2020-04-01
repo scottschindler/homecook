@@ -2,44 +2,52 @@ import { Button, Heading } from "evergreen-ui";
 
 const Header = () => {
   return (
-    <nav>
-      <ul>
-        <li className="left">
-          {" "}
-          <Heading size={900}>Homecook</Heading>
-        </li>
-        <li>
-          <Button appearance="primary">Sign-in</Button>
-        </li>
-        <li>
-          <Button appearance="primary">Sign-up</Button>
-        </li>
-      </ul>
+    <>
+      <nav>
+        <ul>
+          <li className="left">
+            {" "}
+            <Heading size={900}>Homecook</Heading>
+          </li>
+          <div className="right">
+            <li className="one-li">
+              <Button appearance="primary">Sign-in</Button>
+            </li>
+            <li>
+              <Button appearance="primary">Sign-up</Button>
+            </li>
+          </div>
+        </ul>
+      </nav>
       <style jsx>{`
         nav {
-          font-size: 2rem;
           background-color: lightgreen;
+ 
+
         }
         nav ul {
             list-style-type: none;
-            margin: auto;
-            padding: 1rem;
             display: flex;
+            justify-content: space-between;
+   
     
         }
         nav ul li {
             cursor: pointer:
-            padding: 2rem;
-            flex: auto;
-            justify-self: flex-start;
-            text-align:center;
-            margin-left: 2rem;
+            border: 2px solid blue;
         }
         .left {
-            margin:auto;
+          margin: 1rem 5rem;
         }
+        .right {
+          display: flex;  
+          margin: 1rem 5rem;
+                }
+          .one-li {
+            padding-right: 3rem;
+          }
       `}</style>
-    </nav>
+    </>
   );
 };
 

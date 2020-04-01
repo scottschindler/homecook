@@ -1,22 +1,27 @@
+import { useContext } from "react";
 import { Pane, Text, Heading } from "evergreen-ui";
+import { RecipeContext } from "../../../context/BigRecipeContext";
 
-const Card = () => {
+const SmallCard = ({ smallAttr }) => {
   return (
     <div>
       <Pane
-        height={120}
-        width={240}
+        elevation={1}
+        width={250}
+        height={270}
         display="flex"
-        alignItems="center"
+        margin={20}
+        padding={40}
         justifyContent="center"
-        border="default"
+        alignItems="center"
+        flexDirection="column"
       >
-        <Text>Pane</Text>
+        <Heading size={600}>{smallAttr.recipe.label}</Heading>
+        <Heading size={300}>Author Name</Heading>
+        <img src={smallAttr.recipe.image} />
       </Pane>
-      <Heading size={600}>Recipe Name</Heading>
-      <Heading size={300}>Author Name</Heading>
     </div>
   );
 };
 
-export default Card;
+export default SmallCard;

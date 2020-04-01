@@ -5,7 +5,11 @@ const Search = () => {
     <main>
       <ul>
         <li>
-          <SearchInput placeholder="Filter traits..." height={40} />
+          <SearchInput
+            onClick={() => console.log("hello world")}
+            placeholder="search recipes"
+            height={40}
+          />
         </li>
         <li>
           <Button marginRight={16} appearance="minimal" intent="none">

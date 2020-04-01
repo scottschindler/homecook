@@ -1,26 +1,47 @@
-import Card from "../Big/Card";
-import { Pane, Text, Heading } from "evergreen-ui";
+import React, { useState, useEffect, useContext } from "react";
+import { BigRecipeContext } from "../../../context/BigRecipeContext";
+import { SmallRecipeContext } from "../../../context/SmallRecipeContext";
+import Link from "next/link";
+import BigCard from "../Big/Card";
+import SmallCard from "../Small/Card.js";
 
 const Cards = () => {
+  const [bigRecipes, setBigRecipes] = useContext(BigRecipeContext);
+  const [smallRecipes, setSmallRecipes] = useContext(SmallRecipeContext);
+
   return (
-    <div className="card">
-      <li>
-        <Card />
-      </li>
-      <li>
-        <Card />
-      </li>
+    <>
+      <div className="all-cards">
+        <div className="big-cards">
+          {bigRecipes.map((attr, ind) => {
+            return <BigCard attr={attr} key={ind} />;
+          })}
+        </div>
+        <Link href="/recipe/[id]">
+          <div className="small-cards">
+            {smallRecipes.map((smallAttr, ind) => {
+              return <SmallCard smallAttr={smallAttr} key={ind} />;
+            })}
+          </div>
+        </Link>
+      </div>
       <style jsx>{`
-        .card {
+        .all-cards {
           display: flex;
-          margin: 5rem;
+          flex-direction: column;
         }
-        .card li {
-          padding-left: 3rem;
-          list-style-type: none;
+        .big-cards {
+          display: flex;
+          margin: 2rem;
+        }
+        .small-cards {
+          display: flex;
+          padding-bottom: 5rem;
+          margin: 2rem;
+          flex-wrap: wrap;
         }
       `}</style>
-    </div>
+    </>
   );
 };
 

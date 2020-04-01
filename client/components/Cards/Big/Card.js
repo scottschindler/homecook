@@ -1,24 +1,28 @@
 import { Pane, Text, Heading } from "evergreen-ui";
+import Link from "next/link";
 
-const Card = () => {
+const BigCard = ({ attr }) => {
+  console.log(attr);
   return (
-    <div>
-      <Heading size={900}>Featured Recipes</Heading>
-
+    <Link href="/recipe/[id]" as={`recipe/${attr.id}`}>
       <Pane
-        height={220}
+        height={360}
         width={340}
+        margin={20}
         display="flex"
+        flexDirection="column"
         alignItems="center"
         justifyContent="center"
         border="default"
       >
-        <Text>Pane</Text>
+        <Heading size={600}>{attr.title}</Heading>
+        <img
+          src={`https://spoonacular.com/recipeImages/${attr.id}-556x370.jpg`}
+        />
+        <Heading size={300}>Author Name</Heading>
       </Pane>
-      <Heading size={600}>Recipe Name</Heading>
-      <Heading size={300}>Author Name</Heading>
-    </div>
+    </Link>
   );
 };
 
-export default Card;
+export default BigCard;
