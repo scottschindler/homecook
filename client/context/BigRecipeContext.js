@@ -1,0 +1,30 @@
+import { useState, createContext, useEffect } from "react";
+
+// Create Context
+
+export const BigRecipeContext = createContext();
+
+// Provider component
+
+export const BigRecipeProvider = props => {
+  const [bigRecipes, setBigRecipes] = useState([]);
+
+  const getBigReceipes = async () => {
+    const data = await fetch(
+      `https://api.spoonacular.com/recipes/search?apiKey=0713bac886d245648e7d89a46033da15&number=2`
+    );
+    let res = await data.json();
+    setBigRecipes(res.results);
+    console.log(bigRecipes);
+  };
+
+  useEffect(() => {
+    getBigReceipes();
+  }, []);
+
+  return (
+    <BigRecipeContext.Provider value={[bigRecipes, setBigRecipes]}>
+      {props.children}
+    </BigRecipeContext.Provider>
+  );
+};
