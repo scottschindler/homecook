@@ -1,35 +1,42 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import { Pane, Text, Heading } from "evergreen-ui";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { BigRecipeContext } from "../../context/BigRecipeContext";
-import { SmallRecipeContext } from "../../context/SmallRecipeContext";
-import { BigRecipeProvider } from "../../context/BigRecipeContext";
 
 const Recipe = () => {
   const [bigRecipes, setBigRecipes] = useContext(BigRecipeContext);
+  const [recipeInfo, setRecipeInfo] = useState([]);
 
-  console.log(bigRecipes);
+  const router = useRouter();
+  const { id } = router.query;
+
+  const recipe = bigRecipes.find(item => item.id === Number(id));
+
+  const getRecipeInfo = async () => {
+    console.log(id);
+    const data = await fetch(
+      `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false`
+    );
+    const res = await data.json();
+    setRecipeInfo(res);
+  };
+
+  useEffect(() => {
+    getRecipeInfo();
+  }, []);
+
+  console.log(recipeInfo);
+
   return (
     <>
       <Header />
       <div className="container">
-        <Heading>Recipe Name</Heading>
-
-        <Pane
-          height={460}
-          width={1000}
-          margin={20}
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          border="default"
-        >
-          {/* <img
-            src={`https://spoonacular.com/recipeImages/${attr.id}-556x370.jpg`}
-          /> */}
-        </Pane>
+        <Heading marginBottom={20} size={900}>
+          {recipe.title}
+        </Heading>
+        <img src={`https://spoonacular.com/recipeImages/${id}-556x370.jpg`} />
       </div>
       <style jsx>{`
         .container {
@@ -37,7 +44,6 @@ const Recipe = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          border: 2px solid red;
           margin: 5em auto 5rem auto;
         }
       `}</style>
