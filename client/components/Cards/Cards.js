@@ -1,29 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
-import { BigRecipeContext } from "../../../context/BigRecipeContext";
-import { SmallRecipeContext } from "../../../context/SmallRecipeContext";
-import Link from "next/link";
-import BigCard from "../Big/Card";
-import SmallCard from "../Small/Card.js";
+import { BigRecipeContext } from "../../context/BigRecipeContext";
+
+import BigCard from "./BigCard";
 
 const Cards = () => {
   const [bigRecipes, setBigRecipes] = useContext(BigRecipeContext);
-  const [smallRecipes, setSmallRecipes] = useContext(SmallRecipeContext);
-
+  console.log(bigRecipes);
   return (
     <>
       <div className="all-cards">
         <div className="big-cards">
-          {bigRecipes.map((attr, ind) => {
+          {bigRecipes.slice(0, 2).map((attr, ind) => {
             return <BigCard attr={attr} key={ind} />;
           })}
         </div>
-        <Link href="/recipe/[id]">
-          <div className="small-cards">
-            {smallRecipes.map((smallAttr, ind) => {
-              return <SmallCard smallAttr={smallAttr} key={ind} />;
-            })}
-          </div>
-        </Link>
+        <div className="small-cards">
+          {bigRecipes.slice(2).map((attr, ind) => {
+            return <BigCard attr={attr} key={ind} />;
+          })}
+        </div>
       </div>
       <style jsx>{`
         .all-cards {

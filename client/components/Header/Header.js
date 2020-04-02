@@ -21,7 +21,7 @@ const Header = () => {
       </nav>
       <style jsx>{`
         nav {
-          background-color: lightgreen;
+          background-color: #3DDC97;
  
 
         }
