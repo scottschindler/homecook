@@ -12,12 +12,9 @@ const Recipe = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const recipe = bigRecipes.find(item => item.id === Number(id));
-
   const getRecipeInfo = async () => {
-    console.log(id);
     const data = await fetch(
-      `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false`
+      `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=0713bac886d245648e7d89a46033da15`
     );
     const res = await data.json();
     setRecipeInfo(res);
@@ -27,16 +24,42 @@ const Recipe = () => {
     getRecipeInfo();
   }, []);
 
-  console.log(recipeInfo);
+  // const tryin = () => {
+  //   if (recipeInfo) {
+  //     return recipeInfo.analyzedInstructions.map(i => i.steps);
+  //   }
+  //   console.log(tryin());
+  // };
+
+  // tryin();
 
   return (
     <>
       <Header />
       <div className="container">
         <Heading marginBottom={20} size={900}>
-          {recipe.title}
+          {recipeInfo.title}
         </Heading>
         <img src={`https://spoonacular.com/recipeImages/${id}-556x370.jpg`} />
+        <Heading size={600}>Author: {recipeInfo.sourceName}</Heading>
+        <ul className="top-items">
+          <li>Time to Prepare: {recipeInfo.preparationMinutes}</li>
+          <li>Time to cook: {recipeInfo.cookingMinutes}</li>
+          <li>Servings: {recipeInfo.servings}</li>
+        </ul>
+        <ul className="ingredients">
+          {recipeInfo.extendedIngredients &&
+            recipeInfo.extendedIngredients.map(i => {
+              return (
+                <>
+                  <div className="ingredient-items">
+                    <li>{`${i.amount}, ${i.unit}`}</li>
+                    <li>{i.originalName}</li>
+                  </div>
+                </>
+              );
+            })}
+        </ul>
       </div>
       <style jsx>{`
         .container {
@@ -45,6 +68,13 @@ const Recipe = () => {
           flex-direction: column;
           align-items: center;
           margin: 5em auto 5rem auto;
+        }
+        .top-items {
+          display: flex;
+          margin: 2rem;
+        }
+        .ingredient-items {
+          display: flex;
         }
       `}</style>
     </>

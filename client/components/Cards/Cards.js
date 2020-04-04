@@ -5,7 +5,7 @@ import BigCard from "./BigCard";
 
 const Cards = () => {
   const [bigRecipes, setBigRecipes] = useContext(BigRecipeContext);
-  console.log(bigRecipes);
+
   return (
     <>
       <div className="all-cards">
