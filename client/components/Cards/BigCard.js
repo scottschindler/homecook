@@ -2,7 +2,6 @@ import { Pane, Text, Heading } from "evergreen-ui";
 import Link from "next/link";
 
 const BigCard = ({ attr }) => {
-  console.log(attr);
   return (
     <Link href="/recipe/[id]" as={`recipe/${attr.id}`}>
       <Pane
