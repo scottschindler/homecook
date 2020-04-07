@@ -1,13 +1,14 @@
 import { useContext, useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
-import { Pane, Text, Heading } from "evergreen-ui";
-import Link from "next/link";
+import { Heading } from "evergreen-ui";
+
 import { useRouter } from "next/router";
 import { BigRecipeContext } from "../../context/BigRecipeContext";
 
 const Recipe = () => {
   const [bigRecipes, setBigRecipes] = useContext(BigRecipeContext);
   const [recipeInfo, setRecipeInfo] = useState([]);
+  const [nutrition, setNutrition] = useState([]);
 
   const router = useRouter();
   const { id } = router.query;
@@ -20,18 +21,33 @@ const Recipe = () => {
     setRecipeInfo(res);
   };
 
+  // NUTRITION
+
+  const getNutrition = async () => {
+    const data = await fetch(
+      `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=0713bac886d245648e7d89a46033da15`
+    );
+    const res = await data.json();
+    setNutrition(res.nutrition.nutrients);
+  };
+
   useEffect(() => {
     getRecipeInfo();
+    getNutrition();
   }, []);
 
-  // const tryin = () => {
-  //   if (recipeInfo) {
-  //     return recipeInfo.analyzedInstructions.map(i => i.steps);
-  //   }
-  //   console.log(tryin());
-  // };
+  // get list of steps
 
-  // tryin();
+  const steps = () => {
+    let stepsArr = recipeInfo.analyzedInstructions.map(i => i.steps);
+    return stepsArr[0].map(i => `Step ${i.number}: ${i.step}`);
+  };
+
+  const getNutritionArray = () => {
+    return nutrition.slice(0, 9).map(i => {
+      return `${i.title}: ${i.amount}`;
+    });
+  };
 
   return (
     <>
@@ -47,17 +63,40 @@ const Recipe = () => {
           <li>Time to cook: {recipeInfo.cookingMinutes}</li>
           <li>Servings: {recipeInfo.servings}</li>
         </ul>
-        <ul className="ingredients">
-          {recipeInfo.extendedIngredients &&
-            recipeInfo.extendedIngredients.map(i => {
-              return (
-                <>
-                  <div className="ingredient-items">
-                    <li>{`${i.amount}, ${i.unit}`}</li>
-                    <li>{i.originalName}</li>
-                  </div>
-                </>
-              );
+        <div className="ingredient-step-section">
+          <ul className="ingredients">
+            <li>
+              <Heading size={700}>Ingredients</Heading>
+            </li>
+            {recipeInfo.extendedIngredients &&
+              recipeInfo.extendedIngredients.map(i => {
+                return (
+                  <>
+                    <div className="ingredient-items">
+                      <li>{`${i.amount}, ${i.unit}`}</li>
+                      <li>{i.originalName}</li>
+                    </div>
+                  </>
+                );
+              })}
+          </ul>
+          <ul className="steps">
+            <li>
+              <Heading size={700}>Preparation</Heading>
+            </li>
+            {recipeInfo.extendedIngredients &&
+              steps().map(i => {
+                return <li>{i}</li>;
+              })}
+          </ul>
+        </div>
+        <ul className="nutrition">
+          <li>
+            <Heading size={700}>Nutrition</Heading>
+          </li>
+          {nutrition &&
+            getNutritionArray().map(i => {
+              return <li>{i}</li>;
             })}
         </ul>
       </div>
@@ -66,7 +105,6 @@ const Recipe = () => {
           width: 70%;
           display: flex;
           flex-direction: column;
-          align-items: center;
           margin: 5em auto 5rem auto;
         }
         .top-items {
@@ -75,6 +113,9 @@ const Recipe = () => {
         }
         .ingredient-items {
           display: flex;
+        }
+        .ingredient-step-section {
+          display flex;
         }
       `}</style>
     </>
