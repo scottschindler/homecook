@@ -1,4 +1,5 @@
 import { Button, Heading } from "evergreen-ui";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -7,7 +8,11 @@ const Header = () => {
         <ul>
           <li className="left">
             {" "}
-            <Heading size={900}>Homecook</Heading>
+            <Link href="/">
+              <a>
+                <Heading size={900}>Homecook</Heading>
+              </a>
+            </Link>
           </li>
           <div className="right">
             <li className="one-li">
