@@ -1,4 +1,8 @@
-import { SearchInput, Button, Icon } from "evergreen-ui";
+import { SearchInput, Button } from "evergreen-ui";
+// https://material-ui.com/components/icons/
+// to find a material-ui icon, search at material.io https://material.io/resources/icons/?search=search&style=baseline
+// then transform the name from snake_case to PascalCase and import from @material-ui/icons/PascalCase
+import SearchIcon from "@material-ui/icons/Search";
 
 // const searchItem = () => {
 
@@ -20,7 +24,7 @@ const Search = () => {
               placeholder={"search recipes"}
             />
             <button type="submit" className="searchButton">
-              <Icon icon="search" color="muted" size="40" />
+              <SearchIcon icon="search" color="muted" fontSize="large" />
             </button>
           </div>
         </li>
