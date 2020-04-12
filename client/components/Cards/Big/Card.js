@@ -1,24 +1,25 @@
 import { Pane, Text, Heading } from "evergreen-ui";
 
-const Card = () => {
+const BigCard = ({ attr }) => {
+  console.log(attr);
   return (
-    <div>
-      <Heading size={900}>Featured Recipes</Heading>
-
+    <>
       <Pane
-        height={220}
+        height={360}
         width={340}
+        margin={20}
         display="flex"
+        flexDirection="column"
         alignItems="center"
         justifyContent="center"
         border="default"
       >
-        <Text>Pane</Text>
+        <Heading size={600}>{attr.recipe.label}</Heading>
+        <img src={attr.recipe.image} />
+        <Heading size={300}>Author Name</Heading>
       </Pane>
-      <Heading size={600}>Recipe Name</Heading>
-      <Heading size={300}>Author Name</Heading>
-    </div>
+    </>
   );
 };
 
-export default Card;
+export default BigCard;
