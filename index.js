@@ -19,7 +19,7 @@ server.get("/", (req, res) => {
         return (
           res
             .status(500)
-            // error can be undefined here, need to null check it to prevent crash ("TypeError, cannot read message of undefined")
+            // @hey! error can be undefined here, need to null check it to prevent crash ("TypeError, cannot read message of undefined")
             .json({ type: "error", message: error && error.message })
         );
       }

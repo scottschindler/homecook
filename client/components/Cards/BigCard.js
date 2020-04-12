@@ -1,7 +1,7 @@
 import { Pane, Text, Heading } from "evergreen-ui";
 import Link from "next/link";
 
-// looking for a Card component? https://material-ui.com/components/cards/
+// @hey! looking for a Card component? https://material-ui.com/components/cards/
 const BigCard = ({ attr }) => {
   return (
     <Link href="/recipe/[id]" as={`recipe/${attr.id}`}>

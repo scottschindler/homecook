@@ -47,6 +47,7 @@ const Recipe = () => {
       `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=0713bac886d245648e7d89a46033da15`
     );
     const res = await data.json();
+    // @hey! I was getting a "cannot read nutrients of undefined" error so added a null check here
     if (res.nutrition) {
       setNutrition(res.nutrition.nutrients);
     }
